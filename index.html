@@ -15,14 +15,20 @@ html { scroll-behavior: smooth; }
 :root {
   --bg: #080810;
   --surface: #0d0d1c;
+  --ig-pink: #E1306C;
+  --ig-purple: #833AB4;
+  --ig-orange: #F77737;
+  --ig-yellow: #FCAF45;
+  --tt-teal: #25F4EE;
+  --tt-pink: #FE2C55;
+  --accent: #E1306C;
+  --accent2: #833AB4;
   --lime: #c8ff00;
-  --violet: #7b2fff;
-  --cyan: #00e5ff;
-  --coral: #ff4d6d;
-  --orange: #ff6b00;
   --white: #f0f0f8;
   --muted: rgba(240,240,248,0.45);
   --border: rgba(240,240,248,0.08);
+  --hero-bg: #FAFAFA;
+  --dark-text: #1a1a2e;
 }
 
 body {
@@ -46,7 +52,7 @@ body { cursor: none; }
 @media (pointer: coarse) { body { cursor: auto; } #cur, #ring { display: none !important; } }
 #cur {
   width: 10px; height: 10px;
-  background: var(--lime);
+  background: var(--ig-pink);
   border-radius: 50%;
   position: fixed;
   pointer-events: none;
@@ -57,7 +63,7 @@ body { cursor: none; }
 }
 #ring {
   width: 38px; height: 38px;
-  border: 1.5px solid rgba(200,255,0,.4);
+  border: 1.5px solid rgba(225,48,108,.4);
   border-radius: 50%;
   position: fixed;
   pointer-events: none;
@@ -74,15 +80,26 @@ nav {
   display: flex;
   align-items: center;
   gap: 4px;
-  background: rgba(13,13,28,.8);
+  background: rgba(255,255,255,.85);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid var(--border);
+  border: 1px solid rgba(0,0,0,.06);
   border-radius: 100px;
   padding: 8px 10px 8px 22px;
   white-space: nowrap;
   animation: navIn .7s cubic-bezier(.16,1,.3,1) .1s both;
+  box-shadow: 0 4px 24px rgba(0,0,0,.06);
 }
+/* dark nav after hero */
+nav.scrolled {
+  background: rgba(13,13,28,.85);
+  border-color: var(--border);
+  box-shadow: 0 4px 24px rgba(0,0,0,.2);
+}
+nav.scrolled .nav-logo { color: var(--white); }
+nav.scrolled .nav-links a { color: var(--muted); }
+nav.scrolled .nav-links a:hover { color: var(--white); background: rgba(255,255,255,.06); }
+
 @keyframes navIn {
   from { opacity:0; transform: translateX(-50%) translateY(-16px); }
   to   { opacity:1; transform: translateX(-50%) translateY(0); }
@@ -93,13 +110,14 @@ nav {
   font-weight: 900;
   font-size: 13.5px;
   letter-spacing: .12em;
-  color: var(--white);
+  color: var(--dark-text);
   flex-shrink: 0;
+  transition: color .3s;
 }
-.nav-logo .dot { color: var(--lime); }
+.nav-logo .dot { color: var(--ig-pink); }
 .nav-links { display: flex; align-items: center; gap: 2px; list-style: none; }
 .nav-links a {
-  color: var(--muted);
+  color: rgba(26,26,46,.55);
   text-decoration: none;
   font-size: 13px;
   font-weight: 400;
@@ -108,21 +126,21 @@ nav {
   transition: color .2s, background .2s;
   white-space: nowrap;
 }
-.nav-links a:hover { color: var(--white); background: rgba(255,255,255,.06); }
+.nav-links a:hover { color: var(--dark-text); background: rgba(0,0,0,.04); }
 .nav-cta {
-  background: var(--lime) !important;
-  color: #080810 !important;
+  background: linear-gradient(135deg, var(--ig-purple), var(--ig-pink), var(--ig-orange)) !important;
+  color: #fff !important;
   font-weight: 700 !important;
   padding: 9px 20px !important;
   border-radius: 100px;
   transition: transform .2s, box-shadow .2s;
 }
-.nav-cta:hover { transform: scale(1.04); box-shadow: 0 0 28px rgba(200,255,0,.4); }
+.nav-cta:hover { transform: scale(1.04); box-shadow: 0 0 28px rgba(225,48,108,.35); }
 @media (max-width: 640px) {
   .nav-links li:not(:last-child) { display: none; }
 }
 
-/* ===================== HERO ===================== */
+/* ===================== HERO (WHITE) ===================== */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -131,22 +149,24 @@ nav {
   justify-content: center;
   text-align: center;
   position: relative;
-  padding: 120px 24px 80px;
+  padding: 120px 24px 40px;
   overflow: hidden;
   z-index: 2;
+  background: var(--hero-bg);
+  color: var(--dark-text);
 }
 
-/* smooth blobs */
+/* soft gradient blobs on white */
 .blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(100px);
+  filter: blur(120px);
   pointer-events: none;
   z-index: 0;
 }
-.b1 { width:600px;height:600px; background:radial-gradient(circle,rgba(123,47,255,.28) 0%,transparent 70%); top:-140px;left:-100px; animation:blobA 12s ease-in-out infinite; }
-.b2 { width:450px;height:450px; background:radial-gradient(circle,rgba(0,229,255,.18) 0%,transparent 70%); top:35%;right:-80px; animation:blobB 14s ease-in-out infinite; }
-.b3 { width:350px;height:350px; background:radial-gradient(circle,rgba(200,255,0,.12) 0%,transparent 70%); bottom:40px;left:30%; animation:blobA 16s ease-in-out infinite 3s; }
+.b1 { width:700px;height:700px; background:radial-gradient(circle,rgba(225,48,108,.12) 0%,transparent 70%); top:-200px;left:-150px; animation:blobA 12s ease-in-out infinite; }
+.b2 { width:500px;height:500px; background:radial-gradient(circle,rgba(37,244,238,.1) 0%,transparent 70%); top:30%;right:-100px; animation:blobB 14s ease-in-out infinite; }
+.b3 { width:400px;height:400px; background:radial-gradient(circle,rgba(131,58,180,.08) 0%,transparent 70%); bottom:60px;left:30%; animation:blobA 16s ease-in-out infinite 3s; }
 @keyframes blobA { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(20px,-30px) scale(1.08)} }
 @keyframes blobB { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-25px,20px) scale(1.05)} }
 
@@ -157,13 +177,13 @@ nav {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(200,255,0,.07);
-  border: 1px solid rgba(200,255,0,.2);
+  background: rgba(225,48,108,.07);
+  border: 1px solid rgba(225,48,108,.18);
   border-radius: 100px;
   padding: 6px 16px;
   font-size: 11.5px;
   font-weight: 600;
-  color: var(--lime);
+  color: var(--ig-pink);
   letter-spacing: .09em;
   text-transform: uppercase;
   margin-bottom: 28px;
@@ -172,7 +192,7 @@ nav {
 .hero-eyebrow::before {
   content: '';
   width: 6px; height: 6px;
-  background: var(--lime);
+  background: var(--ig-pink);
   border-radius: 50%;
   animation: pulse 2s infinite;
 }
@@ -180,26 +200,27 @@ nav {
 
 .hero-title {
   font-weight: 900;
-  font-size: clamp(60px, 9.5vw, 120px);
+  font-size: clamp(56px, 9vw, 110px);
   line-height: .93;
   letter-spacing: -.04em;
   margin-bottom: 18px;
   animation: fadeUp .8s cubic-bezier(.16,1,.3,1) .5s both;
+  color: var(--dark-text);
 }
 .hero-title .l1 { display: block; }
 .hero-title .l2 {
   display: block;
-  background: linear-gradient(110deg, var(--lime) 0%, var(--cyan) 50%, var(--violet) 100%);
+  background: linear-gradient(135deg, var(--ig-purple) 0%, var(--ig-pink) 40%, var(--ig-orange) 70%, var(--ig-yellow) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  background-size: 200%;
+  background-size: 300%;
   animation: gradShift 4s ease-in-out infinite alternate;
 }
 .hero-title .l3 {
   display: block;
   -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 1.5px rgba(240,240,248,.22);
+  -webkit-text-stroke: 1.5px rgba(26,26,46,.15);
 }
 @keyframes gradShift { from{background-position:0%} to{background-position:100%} }
 
@@ -208,8 +229,8 @@ nav {
   font-weight: 500;
   letter-spacing: .4em;
   text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 44px;
+  color: rgba(26,26,46,.4);
+  margin-bottom: 40px;
   animation: fadeUp .8s cubic-bezier(.16,1,.3,1) .6s both;
 }
 
@@ -220,8 +241,8 @@ nav {
   animation: fadeUp .8s cubic-bezier(.16,1,.3,1) .7s both;
 }
 .btn-p {
-  background: var(--lime);
-  color: #080810;
+  background: linear-gradient(135deg, var(--ig-purple), var(--ig-pink), var(--ig-orange));
+  color: #fff;
   font-weight: 700;
   font-size: 14px;
   padding: 14px 32px;
@@ -231,12 +252,14 @@ nav {
   align-items: center;
   gap: 8px;
   transition: transform .2s, box-shadow .3s;
+  background-size: 200%;
+  animation: gradShift 4s ease-in-out infinite alternate;
 }
-.btn-p:hover { transform: translateY(-2px); box-shadow: 0 10px 44px rgba(200,255,0,.38); }
+.btn-p:hover { transform: translateY(-2px); box-shadow: 0 10px 44px rgba(225,48,108,.35); }
 .btn-p .arr { transition: transform .2s; }
 .btn-p:hover .arr { transform: translateX(5px); }
 .btn-g {
-  color: var(--muted);
+  color: rgba(26,26,46,.5);
   font-size: 14px;
   text-decoration: none;
   display: inline-flex;
@@ -245,41 +268,60 @@ nav {
   padding: 14px 8px;
   transition: color .2s;
 }
-.btn-g:hover { color: var(--white); }
+.btn-g:hover { color: var(--dark-text); }
 
 .hero-stats {
   display: flex;
   gap: 64px;
-  margin-top: 72px;
+  margin-top: 52px;
   animation: fadeUp .8s cubic-bezier(.16,1,.3,1) .85s both;
 }
-.stat-n { font-weight:900; font-size:38px; letter-spacing:-.03em; }
-.stat-l { font-size:11px; color:var(--muted); letter-spacing:.07em; text-transform:uppercase; margin-top:4px; }
+.stat-n { font-weight:900; font-size:38px; letter-spacing:-.03em; color:var(--dark-text); }
+.stat-l { font-size:11px; color:rgba(26,26,46,.4); letter-spacing:.07em; text-transform:uppercase; margin-top:4px; }
 
 @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 
-/* ===================== ARC TEXT MARQUEE ===================== */
-.arc-section {
+/* ===================== WAVE RIBBON ARC TEXT ===================== */
+.wave-ribbon-section {
   position: relative;
   z-index: 2;
-  padding: 40px 0;
+  padding: 0;
   overflow: hidden;
+  background: var(--hero-bg);
+  margin-top: -2px;
 }
-.arc-text-svg {
+.wave-ribbon-svg {
   width: 100%;
   height: auto;
   display: block;
   overflow: visible;
 }
-.arc-text-svg text {
+/* the thick ribbon band */
+#waveRibbonBand {
+  fill: none;
+  stroke: url(#ribbonGrad);
+  stroke-width: 88;
+  stroke-linecap: round;
+}
+/* text on the ribbon */
+.wave-ribbon-svg .ribbon-text {
   font-family: 'Figtree', sans-serif;
   font-weight: 900;
-  font-size: 42px;
-  fill: var(--lime);
-  letter-spacing: .02em;
+  font-size: 36px;
+  fill: var(--dark-text);
+  letter-spacing: .04em;
 }
 @media (max-width: 768px) {
-  .arc-text-svg text { font-size: 28px; }
+  #waveRibbonBand { stroke-width: 60; }
+  .wave-ribbon-svg .ribbon-text { font-size: 24px; }
+}
+
+/* ===================== TRANSITION HERO→DARK ===================== */
+.hero-to-dark {
+  height: 180px;
+  background: linear-gradient(to bottom, var(--hero-bg) 0%, var(--bg) 100%);
+  position: relative;
+  z-index: 2;
 }
 
 /* ===================== SVG SCROLL LINE ===================== */
@@ -308,9 +350,8 @@ nav {
   stroke-linecap: round;
   stroke-dasharray: var(--path-length);
   stroke-dashoffset: var(--path-length);
-  filter: drop-shadow(0 0 12px rgba(200,255,0,.3));
+  filter: drop-shadow(0 0 12px rgba(225,48,108,.3));
 }
-/* faint background path so you can see the track */
 #scrollPathBg {
   fill: none;
   stroke: rgba(240,240,248,.04);
@@ -325,10 +366,9 @@ nav {
 }
 .scroll-line-content .sec-label { margin-bottom: 16px; }
 
-/* glow dot that follows the path */
 #pathDot {
-  fill: var(--lime);
-  filter: drop-shadow(0 0 8px rgba(200,255,0,.6));
+  fill: var(--ig-pink);
+  filter: drop-shadow(0 0 8px rgba(225,48,108,.6));
   opacity: 0;
   transition: opacity .3s;
 }
@@ -413,7 +453,7 @@ nav {
   color: var(--muted);
   margin-bottom: 16px;
 }
-.sec-label::before { content:''; width:22px; height:1px; background:var(--lime); }
+.sec-label::before { content:''; width:22px; height:1px; background:var(--ig-pink); }
 .sec-title {
   font-weight: 900;
   font-size: clamp(34px,4.5vw,58px);
@@ -446,21 +486,21 @@ nav {
   background:var(--cg); opacity:0; transition:opacity .4s; pointer-events:none;
 }
 .sv-card:hover::after { opacity:1; }
-.sv-card:nth-child(1) { --cg:radial-gradient(circle at 0% 100%,rgba(200,255,0,.07) 0%,transparent 60%); }
-.sv-card:nth-child(2) { --cg:radial-gradient(circle at 50% 100%,rgba(123,47,255,.09) 0%,transparent 60%); }
-.sv-card:nth-child(3) { --cg:radial-gradient(circle at 100% 100%,rgba(0,229,255,.07) 0%,transparent 60%); }
-.sv-card:nth-child(4) { --cg:radial-gradient(circle at 0% 0%,rgba(255,77,109,.07) 0%,transparent 60%); }
-.sv-card:nth-child(5) { --cg:radial-gradient(circle at 50% 0%,rgba(200,255,0,.06) 0%,transparent 60%); }
-.sv-card:nth-child(6) { --cg:radial-gradient(circle at 100% 0%,rgba(255,107,0,.07) 0%,transparent 60%); }
+.sv-card:nth-child(1) { --cg:radial-gradient(circle at 0% 100%,rgba(225,48,108,.08) 0%,transparent 60%); }
+.sv-card:nth-child(2) { --cg:radial-gradient(circle at 50% 100%,rgba(131,58,180,.09) 0%,transparent 60%); }
+.sv-card:nth-child(3) { --cg:radial-gradient(circle at 100% 100%,rgba(37,244,238,.07) 0%,transparent 60%); }
+.sv-card:nth-child(4) { --cg:radial-gradient(circle at 0% 0%,rgba(254,44,85,.07) 0%,transparent 60%); }
+.sv-card:nth-child(5) { --cg:radial-gradient(circle at 50% 0%,rgba(247,119,55,.07) 0%,transparent 60%); }
+.sv-card:nth-child(6) { --cg:radial-gradient(circle at 100% 0%,rgba(131,58,180,.07) 0%,transparent 60%); }
 
 .sv-num { font-weight:800; font-size:10px; color:var(--muted); letter-spacing:.15em; margin-bottom:20px; opacity:.4; position:relative;z-index:1; }
-.sv-icon { width:42px;height:42px; border-radius:14px; display:flex; align-items:center; justify-content:center; margin-bottom:20px; font-size:20px; background:rgba(200,255,0,.08); border:1px solid rgba(200,255,0,.15); position:relative;z-index:1; }
+.sv-icon { width:42px;height:42px; border-radius:14px; display:flex; align-items:center; justify-content:center; margin-bottom:20px; font-size:20px; background:rgba(225,48,108,.08); border:1px solid rgba(225,48,108,.15); position:relative;z-index:1; }
 .sv-name { font-weight:800; font-size:17px; letter-spacing:-.02em; margin-bottom:10px; position:relative;z-index:1; }
 .sv-desc { font-size:13.5px; color:var(--muted); line-height:1.65; font-weight:400; position:relative;z-index:1; }
 .sv-tag {
   display:inline-block; margin-top:16px;
   font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
-  color:var(--lime); background:rgba(200,255,0,.08); border:1px solid rgba(200,255,0,.15);
+  color:var(--ig-pink); background:rgba(225,48,108,.08); border:1px solid rgba(225,48,108,.15);
   padding:4px 12px; border-radius:100px; position:relative;z-index:1;
 }
 
@@ -477,7 +517,7 @@ nav {
 }
 .roster::before {
   content:''; position:absolute; inset:0; pointer-events:none;
-  background:radial-gradient(ellipse at 50% 0%, rgba(200,255,0,.03) 0%, transparent 60%);
+  background:radial-gradient(ellipse at 50% 0%, rgba(225,48,108,.03) 0%, transparent 60%);
 }
 .roster-header {
   display:flex; justify-content:space-between; align-items:flex-end;
@@ -505,10 +545,10 @@ nav {
   transition:transform .6s cubic-bezier(.16,1,.3,1);
 }
 .r-card:hover .r-bg { transform:scale(1.06); }
-.r-card:nth-child(1) .r-bg { --av:linear-gradient(145deg,#120820,#3d1c7a); }
-.r-card:nth-child(2) .r-bg { --av:linear-gradient(145deg,#081510,#0d4a2a); }
-.r-card:nth-child(3) .r-bg { --av:linear-gradient(145deg,#180810,#5a1020); }
-.r-card:nth-child(4) .r-bg { --av:linear-gradient(145deg,#08081a,#1a1c60); }
+.r-card:nth-child(1) .r-bg { --av:linear-gradient(145deg,#2a0830,#833AB4); }
+.r-card:nth-child(2) .r-bg { --av:linear-gradient(145deg,#1a0520,#E1306C); }
+.r-card:nth-child(3) .r-bg { --av:linear-gradient(145deg,#081a1a,#25F4EE); }
+.r-card:nth-child(4) .r-bg { --av:linear-gradient(145deg,#1a0510,#FE2C55); }
 
 .r-initials {
   position:absolute; top:50%; left:50%; transform:translate(-50%,-60%);
@@ -538,16 +578,16 @@ nav {
 .rbadge {
   display:inline-flex; align-items:center; gap:5px;
   font-size:10px; font-weight:800; letter-spacing:.04em;
-  color:#080810; padding:4px 10px; border-radius:8px;
+  color:#fff; padding:4px 10px; border-radius:8px;
 }
 .rbadge svg { width:10px; height:10px; flex-shrink:0; }
-.ig { background:var(--lime); }
-.tt { background:rgba(240,240,248,.9); }
+.ig { background: linear-gradient(135deg, var(--ig-purple), var(--ig-pink), var(--ig-orange)); }
+.tt { background: var(--dark-text); }
 
 .link-arr {
   display:inline-flex; align-items:center; gap:8px;
   font-weight:700; font-size:12.5px;
-  color:var(--lime); text-decoration:none; letter-spacing:.05em; text-transform:uppercase;
+  color:var(--ig-pink); text-decoration:none; letter-spacing:.05em; text-transform:uppercase;
   transition:gap .2s;
 }
 .link-arr:hover { gap:14px; }
@@ -566,7 +606,7 @@ footer {
   display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:48px;
 }
 .f-logo { font-weight:900; font-size:16px; letter-spacing:.1em; margin-bottom:14px; }
-.f-logo .dot { color:var(--lime); }
+.f-logo .dot { color:var(--ig-pink); }
 .f-tag { font-size:13.5px; color:var(--muted); line-height:1.7; font-weight:400; max-width:250px; }
 .f-socials { display:flex; gap:10px; margin-top:22px; }
 .f-socials a {
@@ -575,7 +615,7 @@ footer {
   font-size:13px; color:var(--muted); text-decoration:none;
   transition:border-color .2s,color .2s,background .2s;
 }
-.f-socials a:hover { border-color:var(--lime); color:var(--lime); background:rgba(200,255,0,.05); }
+.f-socials a:hover { border-color:var(--ig-pink); color:var(--ig-pink); background:rgba(225,48,108,.05); }
 .f-col-title { font-weight:700; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:18px; }
 .f-col-links { list-style:none; display:flex; flex-direction:column; gap:9px; }
 .f-col-links a { color:var(--muted); text-decoration:none; font-size:14px; font-weight:400; transition:color .2s; }
@@ -606,7 +646,7 @@ footer {
 <div id="ring"></div>
 
 <!-- ===== NAV ===== -->
-<nav>
+<nav id="mainNav">
   <a href="#" class="nav-logo">SLALOM AGENCY<span class="dot">.</span></a>
   <ul class="nav-links">
     <li><a href="#">Case Studies</a></li>
@@ -617,8 +657,8 @@ footer {
   </ul>
 </nav>
 
-<!-- ===== HERO ===== -->
-<section class="hero">
+<!-- ===== HERO (WHITE) ===== -->
+<section class="hero" id="heroSection">
   <div class="blob b1"></div>
   <div class="blob b2"></div>
   <div class="blob b3"></div>
@@ -645,20 +685,34 @@ footer {
   </div>
 </section>
 
-<!-- ===== ARC TEXT ===== -->
-<div class="arc-section" aria-hidden="true">
-  <svg class="arc-text-svg" viewBox="0 0 1400 220" preserveAspectRatio="xMidYMid meet">
+<!-- ===== WAVE RIBBON ARC TEXT ===== -->
+<div class="wave-ribbon-section" aria-hidden="true">
+  <svg class="wave-ribbon-svg" viewBox="0 0 1400 340" preserveAspectRatio="xMidYMid slice">
     <defs>
-      <path id="arcWave" d="M -200,140 C 0,20 200,260 400,140 C 600,20 800,260 1000,140 C 1200,20 1400,260 1600,140" />
+      <linearGradient id="ribbonGrad" x1="0" y1="0" x2="1400" y2="0" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#833AB4"/>
+        <stop offset="25%" stop-color="#E1306C"/>
+        <stop offset="50%" stop-color="#F77737"/>
+        <stop offset="75%" stop-color="#FCAF45"/>
+        <stop offset="100%" stop-color="#25F4EE"/>
+      </linearGradient>
+      <!-- center wave path for text to follow -->
+      <path id="ribbonWavePath" d="M -300,170 C -100,40 100,300 300,170 C 500,40 700,300 900,170 C 1100,40 1300,300 1500,170 C 1700,40 1900,300 2100,170" />
     </defs>
-    <text>
-      <textPath href="#arcWave" startOffset="0%">
-        <animate attributeName="startOffset" from="0%" to="-100%" dur="16s" repeatCount="indefinite"/>
-        SLALOM AGENCY &bull; TALENT &amp; CREATIVE &bull; FIND YOUR WAY &bull; SLALOM AGENCY &bull; TALENT &amp; CREATIVE &bull; FIND YOUR WAY &bull; SLALOM AGENCY &bull; TALENT &amp; CREATIVE &bull;
+    <!-- thick ribbon band -->
+    <use href="#ribbonWavePath" id="waveRibbonBand"/>
+    <!-- text along the wave -->
+    <text class="ribbon-text">
+      <textPath href="#ribbonWavePath" startOffset="0%">
+        <animate attributeName="startOffset" from="0%" to="-50%" dur="14s" repeatCount="indefinite"/>
+        SLALOM AGENCY &#x2022; TALENT &amp; CREATIVE &#x2022; FIND YOUR WAY &#x2022; INSTAGRAM &#x2022; TIKTOK &#x2022; SOCIAL MEDIA &#x2022; SLALOM AGENCY &#x2022; TALENT &amp; CREATIVE &#x2022; FIND YOUR WAY &#x2022; INSTAGRAM &#x2022; TIKTOK &#x2022; SOCIAL MEDIA &#x2022;
       </textPath>
     </text>
   </svg>
 </div>
+
+<!-- ===== TRANSITION TO DARK ===== -->
+<div class="hero-to-dark"></div>
 
 <!-- ===== PARTNERS ===== -->
 <div class="partners">
@@ -691,20 +745,18 @@ footer {
     <svg viewBox="0 0 1400 800" preserveAspectRatio="xMidYMid slice">
       <defs>
         <linearGradient id="scrollGrad" x1="0" y1="0" x2="1400" y2="800" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stop-color="#7b2fff"/>
-          <stop offset="35%" stop-color="#00e5ff"/>
-          <stop offset="65%" stop-color="#c8ff00"/>
-          <stop offset="100%" stop-color="#ff4d6d"/>
+          <stop offset="0%" stop-color="#833AB4"/>
+          <stop offset="35%" stop-color="#E1306C"/>
+          <stop offset="65%" stop-color="#F77737"/>
+          <stop offset="100%" stop-color="#25F4EE"/>
         </linearGradient>
       </defs>
-      <!-- smooth S-curves — background track -->
       <path id="scrollPathBg"
         d="M -50,400
            C 150,100 350,100 500,400
            C 650,700 850,700 1000,400
            C 1150,100 1350,100 1450,400"
       />
-      <!-- smooth S-curves — animated foreground -->
       <path id="scrollPath"
         d="M -50,400
            C 150,100 350,100 500,400
@@ -907,6 +959,23 @@ footer {
 </footer>
 
 <script>
+// ===== NAV SCROLL (white → dark) =====
+(function() {
+  const nav = document.getElementById('mainNav');
+  const hero = document.getElementById('heroSection');
+  if (!nav || !hero) return;
+  function checkNav() {
+    const heroBottom = hero.getBoundingClientRect().bottom;
+    if (heroBottom < 80) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  }
+  window.addEventListener('scroll', checkNav, { passive: true });
+  checkNav();
+})();
+
 // ===== CURSOR =====
 if (window.matchMedia('(pointer: fine)').matches) {
   const cur = document.getElementById('cur');
@@ -948,7 +1017,6 @@ document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
   const section = document.getElementById('scrollLine');
   if (!path || !section) return;
 
-  // measure and set path length
   const pathLength = path.getTotalLength();
   path.style.setProperty('--path-length', pathLength);
   path.style.strokeDasharray = pathLength;
@@ -957,7 +1025,6 @@ document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
   function onScroll() {
     const rect = section.getBoundingClientRect();
     const winH = window.innerHeight;
-    // progress: 0 when top of section hits bottom of viewport, 1 when bottom of section hits top
     const totalTravel = rect.height + winH;
     const traveled = winH - rect.top;
     const progress = Math.max(0, Math.min(1, traveled / totalTravel));
@@ -965,7 +1032,6 @@ document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
     const offset = pathLength * (1 - progress);
     path.style.strokeDashoffset = offset;
 
-    // move dot along path
     if (progress > 0.01 && progress < 0.99) {
       dot.style.opacity = '1';
       const pt = path.getPointAtLength(progress * pathLength);
