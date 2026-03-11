@@ -130,6 +130,24 @@ nav.scrolled .nav-links a:hover { color: var(--white); background: rgba(255,255,
   background: var(--hero-bg);
   color: var(--dark-text);
 }
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: -12%;
+  background:
+    radial-gradient(circle at 18% 30%, rgba(131,58,180,.08) 0%, transparent 32%),
+    radial-gradient(circle at 78% 32%, rgba(225,48,108,.07) 0%, transparent 30%),
+    radial-gradient(circle at 48% 78%, rgba(247,119,55,.06) 0%, transparent 34%);
+  opacity: .95;
+  pointer-events: none;
+  z-index: 0;
+  animation: heroAura 18s ease-in-out infinite alternate;
+}
+@keyframes heroAura {
+  0% { transform: translate3d(-1.5%, -1%, 0) scale(1); filter: blur(0px); }
+  50% { transform: translate3d(1.5%, 1%, 0) scale(1.03); filter: blur(6px); }
+  100% { transform: translate3d(0, 1.2%, 0) scale(1.02); filter: blur(2px); }
+}
 
 /* soft gradient blobs on white */
 .blob {
