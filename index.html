@@ -195,12 +195,13 @@ nav.scrolled .nav-links a:hover { color: var(--white); background: rgba(255,255,
   color: transparent;
   -webkit-text-stroke: 2px rgba(26,26,46,.42);
   text-stroke: 2px rgba(26,26,46,.42);
-  background: linear-gradient(135deg, var(--ig-purple) 0%, var(--ig-pink) 25%, var(--ig-orange) 55%, var(--ig-yellow) 80%, var(--tt-teal) 100%);
-  background-size: 220% 220%;
+  background-image: none;
   transition: color .28s ease, -webkit-text-fill-color .28s ease, text-shadow .28s ease, transform .28s ease, -webkit-text-stroke-color .28s ease, background-position .6s ease;
   cursor: default;
 }
 .hero-title .l2:hover {
+  background-image: linear-gradient(135deg, var(--ig-purple) 0%, var(--ig-pink) 25%, var(--ig-orange) 55%, var(--ig-yellow) 80%, var(--tt-teal) 100%);
+  background-size: 220% 220%;
   -webkit-text-stroke-color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
